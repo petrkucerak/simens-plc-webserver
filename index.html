@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page name</title>
+    <script src="jquery-min.js"></script>
+    <!-- jquery version 2.0.2 -->
+  </head>
+  <body>
+    <label id="otacky">načítání...</label>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        setInterval(function () {
+          $.get("frame.htm", function (result) {
+            $("#otacky").text(result.trim());
+          });
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
