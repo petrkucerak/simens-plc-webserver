@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ukázková stránka</title>
+    <script src="jquery-min.js"></script>
+    <!-- jquery version 2.0.2 -->
+  </head>
+  <body>
+    <ul>
+      <li>Otáčky: <span id="otacky">načítání...</span></li>
+      <li>Síla: <span id="sila">načítání...</span></li>
+      <li>Rychlost: <span id="rychlost">načítání...</span></li>
+    </ul>
+    <script type="text/javascript">
+      const interval = 100; // refresh data each 100 ms
+      $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        setInterval(function () {
+          $.get("frame.htm", function (result) {
+            const data = result.trim().split(";");
+            $("#otacky").text(data[0]);
+            $("#sila").text(data[1]);
+            $("#rychlost").text(data[2]);
+          });
+        }, interval);
+      });
+    </script>
+  </body>
+</html>
