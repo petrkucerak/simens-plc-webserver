@@ -9,10 +9,11 @@
   </head>
   <body>
     <ul>
-      <li>Otáčky: <span id="otacky">načítání...</span></li>
-      <li>Síla: <span id="sila">načítání...</span></li>
-      <li>Rychlost: <span id="rychlost">načítání...</span></li>
+      <li>Otáčky: <span id="revolutions">načítání...</span></li>
+      <li>Síla: <span id="power">načítání...</span></li>
+      <li>Rychlost: <span id="speed">načítání...</span></li>
     </ul>
+    <img src="" id="picture" alt="" />
     <script type="text/javascript">
       const interval = 100; // refresh data each 100 ms
       $(document).ready(function () {
@@ -20,9 +21,23 @@
         setInterval(function () {
           $.get("frame.htm", function (result) {
             const data = result.trim().split(";");
-            $("#otacky").text(data[0]);
-            $("#sila").text(data[1]);
-            $("#rychlost").text(data[2]);
+            $("#revolutions").text(data[0]);
+            $("#power").text(data[1]);
+            $("#speed").text(data[2]);
+
+            switch (data[3]) {
+              case "Připraveno":
+                $("#picture").attr("src", "asstes/01.webp"); // nastavi adresu
+                $("#picture").attr("alt", "Připraveno"); // nastavi alt popisek pro zlepseni pristupnost
+                break;
+              case "Potvrď start!":
+                $("#picture").attr("src", "asstes/02.webp");
+                $("#picture").attr("alt", "Potvrď start!");
+                break;
+
+              default: // handle not exisiting value
+                console.error("Image for this enum doesn't exists!");
+            }
           });
         }, interval);
       });
